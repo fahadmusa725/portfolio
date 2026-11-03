@@ -1,5 +1,6 @@
 import { Inter_Tight, JetBrains_Mono } from "next/font/google";
 
+import PillNav from "@/components/nav/PillNav";
 import { themeInitScript } from "@/lib/theme";
 
 import "./globals.css";
@@ -25,6 +26,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col">
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+        <PillNav />
         {children}
       </body>
     </html>
