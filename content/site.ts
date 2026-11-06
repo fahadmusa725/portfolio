@@ -19,6 +19,37 @@ export type Profile = {
   socials: SocialLink[];
 };
 
+export type ProjectLinks = {
+  live?: string;
+  repo?: string;
+};
+
+export type ProjectImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+export type Project = {
+  title: string;
+  summary: string;
+  stack: string[];
+  links: ProjectLinks;
+  image?: ProjectImage;
+  year?: number;
+  hasCaseStudy?: boolean;
+};
+
+export type WorkSection = {
+  label: string;
+  title: string;
+  linkLabels: {
+    live: string;
+    repo: string;
+  };
+};
+
 export const navLinks: NavLink[] = [
   { label: "Work", href: "/#work" },
   { label: "Experience", href: "/#experience" },
@@ -40,4 +71,24 @@ export const profile: Profile = {
     { label: "GitHub", href: "https://github.com/fahadmusa725" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/fahad-musa-ba30ab355" },
   ],
+};
+
+export const selectedWork: WorkSection = {
+  label: "01 / Selected work",
+  title: "Selected work",
+  linkLabels: {
+    live: "Live site",
+    repo: "Repository",
+  },
+};
+
+export const flagshipProject: Project = {
+  title: "CareFlow HMS",
+  summary:
+    "Multi-tenant hospital management platform. Hospitals run OPD, IPD, lab, pharmacy and billing on one system with isolated data.",
+  stack: ["React", "Node.js", "Express", "MongoDB"],
+  links: {
+    live: "https://hms-project-hhtz.vercel.app",
+    repo: "https://github.com/fahadmusa725/HMS-Project",
+  },
 };
