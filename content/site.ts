@@ -24,6 +24,8 @@ export type ProjectLinks = {
   repo?: string;
 };
 
+export type ProjectCategory = "saas" | "fullstack" | "frontend";
+
 export type ProjectImage = {
   src: string;
   alt: string;
@@ -36,9 +38,17 @@ export type Project = {
   summary: string;
   stack: string[];
   links: ProjectLinks;
+  category: ProjectCategory;
   image?: ProjectImage;
   year?: number;
   hasCaseStudy?: boolean;
+};
+
+export type WorkFilterId = "all" | "live" | ProjectCategory;
+
+export type WorkFilter = {
+  id: WorkFilterId;
+  label: string;
 };
 
 export type WorkSection = {
@@ -48,6 +58,9 @@ export type WorkSection = {
     live: string;
     repo: string;
   };
+  filterGroupLabel: string;
+  filters: WorkFilter[];
+  countTemplate: string;
 };
 
 export const navLinks: NavLink[] = [
@@ -80,6 +93,15 @@ export const selectedWork: WorkSection = {
     live: "Live site",
     repo: "Repository",
   },
+  filterGroupLabel: "Filter projects",
+  filters: [
+    { id: "all", label: "All" },
+    { id: "live", label: "Live" },
+    { id: "saas", label: "SaaS" },
+    { id: "fullstack", label: "Full stack" },
+    { id: "frontend", label: "Frontend" },
+  ],
+  countTemplate: "Showing {count} projects",
 };
 
 /**
@@ -92,6 +114,7 @@ export const workProjects: Project[] = [
     summary:
       "Multi-tenant restaurant POS. Each restaurant's menu, staff, inventory, orders and reports stay separate, with plan-based access control.",
     stack: ["React", "Node.js", "Express", "MongoDB"],
+    category: "saas",
     links: {
       repo: "https://github.com/fahadmusa725/pos-saas",
     },
@@ -101,6 +124,7 @@ export const workProjects: Project[] = [
     summary:
       "Kanban project management tool with real-time board sync, role-based projects and a delivery dashboard.",
     stack: ["Next.js", "TypeScript", "MongoDB", "Ably"],
+    category: "fullstack",
     links: {
       live: "https://fahad-projectflow.vercel.app",
       repo: "https://github.com/fahadmusa725/projectflow",
@@ -111,6 +135,7 @@ export const workProjects: Project[] = [
     summary:
       "Instagram-style social app with posts, 24-hour stories, follows, notifications and an admin dashboard.",
     stack: ["React", "Node.js", "Express", "MongoDB", "Cloudinary"],
+    category: "fullstack",
     links: {
       live: "https://vibely-e8zu.vercel.app",
     },
@@ -120,6 +145,7 @@ export const workProjects: Project[] = [
     summary:
       "Footwear store with stock per colorway and size, Stripe test-mode checkout and an admin dashboard.",
     stack: ["React", "Node.js", "Express", "MongoDB", "Stripe"],
+    category: "fullstack",
     links: {
       live: "https://strideon-store.vercel.app",
     },
@@ -129,6 +155,7 @@ export const workProjects: Project[] = [
     summary:
       "Online bookstore for PDF, hard copy and CD books with cart, checkout and an admin dashboard.",
     stack: ["PHP", "MySQL"],
+    category: "fullstack",
     links: {
       repo: "https://github.com/fahadmusa725/Booksy",
     },
@@ -138,6 +165,7 @@ export const workProjects: Project[] = [
     summary:
       "Mobile car detailing website with services, pricing, gallery and a booking form with email notifications.",
     stack: ["HTML", "CSS", "JavaScript", "EmailJS"],
+    category: "frontend",
     links: {
       live: "https://premiumshinedetailing.vercel.app",
     },
@@ -147,6 +175,7 @@ export const workProjects: Project[] = [
     summary:
       "Dental clinic website built as a team project, covering services, education, case studies and appointment booking.",
     stack: ["HTML", "CSS", "JavaScript"],
+    category: "frontend",
     links: {
       live: "https://dental-clinic-website-jade-kappa.vercel.app",
     },
@@ -158,6 +187,7 @@ export const flagshipProject: Project = {
   summary:
     "Multi-tenant hospital management platform. Hospitals run OPD, IPD, lab, pharmacy and billing on one system with isolated data.",
   stack: ["React", "Node.js", "Express", "MongoDB"],
+  category: "saas",
   links: {
     live: "https://hms-project-hhtz.vercel.app",
     repo: "https://github.com/fahadmusa725/HMS-Project",
