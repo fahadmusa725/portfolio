@@ -227,6 +227,13 @@ export const experienceSection: ExperienceSection = {
   },
   entries: [
     {
+      role: "Full Stack Development Intern, CodeAlpha",
+      period: "2026",
+      points: [
+        "Built three full stack projects: Strideon (e-commerce with Stripe checkout), Vibely (social platform) and ProjectFlow (real-time project management).",
+      ],
+    },
+    {
       role: "Independent full stack projects",
       period: "Aug 2024 to present",
       points: [
@@ -238,7 +245,7 @@ export const experienceSection: ExperienceSection = {
     },
     {
       role: "Call center, sales agent (chat-based)",
-      period: "Aug 2024 to present",
+      period: "Aug 2024 to 2026",
       points: [
         "Worked as a chat-based sales agent on Facebook Messenger.",
         "Handled customer queries through written communication.",
