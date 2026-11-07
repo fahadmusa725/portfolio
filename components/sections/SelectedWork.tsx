@@ -1,6 +1,7 @@
 import Image from "next/image";
 
-import { flagshipProject, selectedWork } from "@/content/site";
+import ProjectRow from "@/components/ProjectRow";
+import { flagshipProject, selectedWork, workProjects } from "@/content/site";
 
 const cardLink =
   "font-mono text-label uppercase underline underline-offset-4 transition-colors duration-200";
@@ -72,6 +73,16 @@ export default function SelectedWork() {
           </div>
         </div>
       </article>
+
+      <ol className="mt-6 sm:mt-8">
+        {workProjects.map((project, index) => (
+          <ProjectRow
+            key={project.title}
+            project={project}
+            number={String(index + 2).padStart(2, "0")}
+          />
+        ))}
+      </ol>
     </section>
   );
 }
