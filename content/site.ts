@@ -193,3 +193,178 @@ export const flagshipProject: Project = {
     repo: "https://github.com/fahadmusa725/HMS-Project",
   },
 };
+
+export type ExperienceEntry = {
+  role: string;
+  period: string;
+  points: string[];
+};
+
+export type EducationEntry = {
+  institution: string;
+  programme: string;
+  period: string;
+  note?: string;
+};
+
+export type ExperienceSection = {
+  label: string;
+  title: string;
+  subLabels: {
+    experience: string;
+    education: string;
+  };
+  entries: ExperienceEntry[];
+  education: EducationEntry[];
+};
+
+export const experienceSection: ExperienceSection = {
+  label: "02 / Experience",
+  title: "Experience and education",
+  subLabels: {
+    experience: "Experience",
+    education: "Education",
+  },
+  entries: [
+    {
+      role: "Independent full stack projects",
+      period: "Aug 2024 to present",
+      points: [
+        "Built and deployed CareFlow HMS, a multi-tenant hospital management platform, and built DineFlow, a multi-tenant restaurant POS.",
+        "Built ProjectFlow with Next.js, TypeScript and MongoDB, with real-time board sync using Ably.",
+        "Worked on individual and team projects, from responsive frontends to REST APIs, authentication and database design.",
+        "Deployed projects on Vercel and Netlify.",
+      ],
+    },
+    {
+      role: "Call center, sales agent (chat-based)",
+      period: "Aug 2024 to present",
+      points: [
+        "Worked as a chat-based sales agent on Facebook Messenger.",
+        "Handled customer queries through written communication.",
+        "Built communication, time management and teamwork skills.",
+      ],
+    },
+  ],
+  education: [
+    {
+      institution: "Aptech Institute",
+      programme: "Advanced Diploma in Software Engineering",
+      period: "2024 to present",
+      note: "Web development, object-oriented programming, database systems, software design and full stack development.",
+    },
+    {
+      institution: "Siraj-ul-Daulah Government Degree College, F.C. Area, Karachi",
+      programme: "Intermediate, Commerce",
+      period: "2021 to 2023",
+    },
+    {
+      institution: "JMA Boys and Girls Secondary School Campus 2",
+      programme: "Matriculation, Computer Science",
+      period: "2019 to 2021",
+    },
+  ],
+};
+
+export type StackGroup = {
+  title: string;
+  items: string[];
+};
+
+export type StackSection = {
+  label: string;
+  title: string;
+  groups: StackGroup[];
+};
+
+export const stackSection: StackSection = {
+  label: "03 / Stack",
+  title: "Stack",
+  groups: [
+    {
+      title: "Frontend",
+      items: [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Bootstrap",
+        "jQuery",
+      ],
+    },
+    {
+      title: "Backend",
+      items: ["Node.js", "Express.js", "PHP", "Laravel", "C#"],
+    },
+    {
+      title: "Mobile",
+      items: ["Dart", "Flutter"],
+    },
+    {
+      title: "Data and hosting",
+      items: ["MongoDB", "MySQL", "SQL Server", "Vercel", "Netlify"],
+    },
+    {
+      title: "Tools",
+      items: [
+        "Git",
+        "GitHub",
+        "Ably",
+        "Stripe",
+        "Cloudinary",
+        "Microsoft Word",
+        "Microsoft Excel",
+        "Microsoft PowerPoint",
+      ],
+    },
+  ],
+};
+
+export type ContactAction = {
+  label: string;
+  href: string;
+};
+
+export type ContactDetail = {
+  label: string;
+  value?: string;
+  links?: SocialLink[];
+};
+
+export type ContactSection = {
+  label: string;
+  title: string;
+  line: string;
+  actions: {
+    primary: ContactAction;
+    secondary: ContactAction;
+  };
+  details: ContactDetail[];
+  availability: string;
+};
+
+export const contactSection: ContactSection = {
+  label: "05 / Contact",
+  title: "Hiring or have a project? Write to me.",
+  line: "Email or WhatsApp, whichever is easier for you.",
+  actions: {
+    primary: {
+      label: "Email me",
+      href: `mailto:${profile.email}`,
+    },
+    secondary: {
+      label: "WhatsApp",
+      href: "https://wa.me/923313687521",
+    },
+  },
+  details: [
+    { label: "Email", value: profile.email },
+    { label: "WhatsApp", value: "+92 331 3687521" },
+    { label: "Elsewhere", links: profile.socials },
+    { label: "Based in", value: "Karachi, Pakistan" },
+  ],
+  availability: profile.availability,
+};
