@@ -330,6 +330,22 @@ export const stackSection: StackSection = {
   ],
 };
 
+export type AboutSection = {
+  label: string;
+  title: string;
+  paragraphs: string[];
+};
+
+export const aboutSection: AboutSection = {
+  label: "04 / About",
+  title: "About",
+  paragraphs: [
+    "I'm a full stack developer in Karachi, studying software engineering at Aptech. I build with the MERN stack and Next.js, and I care most about security, clean design, and software that is easy to use and does not break.",
+    "That shows in how I build. In CareFlow HMS, tenant isolation lives in the framework and fails closed, so a missed filter cannot leak another hospital's data. In DineFlow, the server re-checks stock, coupons and tax instead of trusting the client.",
+    "I'm open to full-time, part-time and freelance work.",
+  ],
+};
+
 export type ContactAction = {
   label: string;
   href: string;

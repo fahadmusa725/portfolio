@@ -1,3 +1,4 @@
+import About from "@/components/sections/About";
 import Contact from "@/components/sections/Contact";
 import Experience from "@/components/sections/Experience";
 import Footer from "@/components/sections/Footer";
@@ -13,6 +14,7 @@ export default function HomePage() {
         <SelectedWork />
         <Experience />
         <Stack />
+        <About />
         <Contact />
       </main>
       <Footer />
