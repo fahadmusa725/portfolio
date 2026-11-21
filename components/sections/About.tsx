@@ -6,7 +6,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="mx-auto w-full max-w-5xl scroll-mt-28 px-6 pt-8 pb-16 sm:pt-12 sm:pb-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-16 sm:py-24"
     >
       <p className="font-mono text-label uppercase text-muted">{label}</p>
       <h2 className="mt-4 text-heading">{title}</h2>

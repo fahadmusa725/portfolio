@@ -16,6 +16,8 @@ export type Profile = {
   headline: string;
   intro: string;
   email: string;
+  photo?: string;
+  resume?: string;
   socials: SocialLink[];
 };
 
@@ -64,7 +66,8 @@ export type WorkSection = {
 };
 
 export const navLinks: NavLink[] = [
-  { label: "Work", href: "/#work" },
+  { label: "Intro", href: "/#intro" },
+  { label: "Selected work", href: "/#work" },
   { label: "Experience", href: "/#experience" },
   { label: "Stack", href: "/#stack" },
   { label: "About", href: "/#about" },
@@ -118,6 +121,12 @@ export const workProjects: Project[] = [
     links: {
       repo: "https://github.com/fahadmusa725/pos-saas",
     },
+    image: {
+      src: "/work/dineflow.png",
+      alt: "Screenshot of the DineFlow interface",
+      width: 1599,
+      height: 892,
+    },
   },
   {
     title: "ProjectFlow",
@@ -129,6 +138,12 @@ export const workProjects: Project[] = [
       live: "https://fahad-projectflow.vercel.app",
       repo: "https://github.com/fahadmusa725/projectflow",
     },
+    image: {
+      src: "/work/projectflow.png",
+      alt: "Screenshot of the ProjectFlow interface",
+      width: 1600,
+      height: 900,
+    },
   },
   {
     title: "Vibely",
@@ -139,6 +154,12 @@ export const workProjects: Project[] = [
     links: {
       live: "https://vibely-e8zu.vercel.app",
     },
+    image: {
+      src: "/work/vibely.png",
+      alt: "Screenshot of the Vibely interface",
+      width: 1599,
+      height: 892,
+    },
   },
   {
     title: "Strideon",
@@ -148,6 +169,12 @@ export const workProjects: Project[] = [
     category: "fullstack",
     links: {
       live: "https://strideon-store.vercel.app",
+    },
+    image: {
+      src: "/work/strideon.png",
+      alt: "Screenshot of the Strideon interface",
+      width: 1599,
+      height: 893,
     },
   },
   {
@@ -169,6 +196,12 @@ export const workProjects: Project[] = [
     links: {
       live: "https://premiumshinedetailing.vercel.app",
     },
+    image: {
+      src: "/work/premiumshine.png",
+      alt: "Screenshot of the Premium Shine Detailing interface",
+      width: 1600,
+      height: 900,
+    },
   },
   {
     title: "32 Smile",
@@ -178,6 +211,12 @@ export const workProjects: Project[] = [
     category: "frontend",
     links: {
       live: "https://dental-clinic-website-jade-kappa.vercel.app",
+    },
+    image: {
+      src: "/work/32smile.png",
+      alt: "Screenshot of the 32 Smile interface",
+      width: 1599,
+      height: 892,
     },
   },
 ];
@@ -191,6 +230,12 @@ export const flagshipProject: Project = {
   links: {
     live: "https://hms-project-hhtz.vercel.app",
     repo: "https://github.com/fahadmusa725/HMS-Project",
+  },
+  image: {
+    src: "/work/careflow.png",
+    alt: "Screenshot of the CareFlow HMS interface",
+    width: 1600,
+    height: 894,
   },
 };
 

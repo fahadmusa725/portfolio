@@ -9,7 +9,7 @@ import Stack from "@/components/sections/Stack";
 export default function HomePage() {
   return (
     <>
-      <main className="flex-1">
+      <main className="flex-1 divide-y divide-line">
         <Hero />
         <SelectedWork />
         <Experience />

@@ -12,7 +12,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="mx-auto w-full max-w-5xl scroll-mt-28 px-6 pt-8 pb-16 sm:pt-12 sm:pb-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-16 sm:py-24"
     >
       <p className="font-mono text-label uppercase text-muted">{label}</p>
       <h2 className="mt-4 max-w-3xl text-heading">{title}</h2>
