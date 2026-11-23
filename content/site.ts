@@ -36,6 +36,7 @@ export type ProjectImage = {
 };
 
 export type Project = {
+  slug?: string;
   title: string;
   summary: string;
   stack: string[];
@@ -232,6 +233,8 @@ export const workProjects: Project[] = [
 ];
 
 export const flagshipProject: Project = {
+  slug: "careflow-hms",
+  hasCaseStudy: true,
   title: "CareFlow HMS",
   summary:
     "Multi-tenant hospital management platform. Hospitals run OPD, IPD, lab, pharmacy and billing on one system with isolated data.",

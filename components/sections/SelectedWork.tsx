@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 import {
@@ -43,7 +44,7 @@ const cardLink =
 
 export default function SelectedWork() {
   const [activeFilter, setActiveFilter] = useState<WorkFilterId>("all");
-  const { image, links, stack, summary, title } = flagshipProject;
+  const { hasCaseStudy, image, links, slug, stack, summary, title } = flagshipProject;
 
   const showFlagship = activeFilter === "all";
   const displayedProjects = showFlagship
@@ -115,7 +116,18 @@ export default function SelectedWork() {
           ) : null}
 
           <div className="p-6 sm:p-10">
-            <h3 className="text-3xl sm:text-4xl">{title}</h3>
+            {hasCaseStudy && slug ? (
+              <h3 className="text-3xl sm:text-4xl">
+                <Link
+                  href={`/projects/${slug}`}
+                  className="transition-colors duration-200 hover:text-accent-on-surface"
+                >
+                  {title}
+                </Link>
+              </h3>
+            ) : (
+              <h3 className="text-3xl sm:text-4xl">{title}</h3>
+            )}
 
             <p className="measure mt-5 text-surface-ink/75">{summary}</p>
 
@@ -131,6 +143,16 @@ export default function SelectedWork() {
             </ul>
 
             <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {hasCaseStudy && slug ? (
+                <Link
+                  href={`/projects/${slug}`}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-surface-ink px-4 py-2 font-mono text-label uppercase text-surface transition-colors duration-200 hover:bg-surface-ink/90"
+                >
+                  Read case study
+                  <span aria-hidden="true"> →</span>
+                </Link>
+              ) : null}
+
               {links.live ? (
                 <a
                   href={links.live}
@@ -165,6 +187,7 @@ export default function SelectedWork() {
         {displayedProjects.map((project, index) => {
           const number = formatNumber(showFlagship ? index + 2 : index + 1);
           const categoryLabel = categoryLabels.get(project.category) ?? project.category;
+          const hasProjectCaseStudy = Boolean(project.hasCaseStudy && project.slug);
 
           return (
             <li key={project.title}>
@@ -188,7 +211,18 @@ export default function SelectedWork() {
                       {number} / {categoryLabel}
                     </p>
 
-                    <h3 className="mt-3 text-xl font-bold sm:text-2xl">{project.title}</h3>
+                    {hasProjectCaseStudy ? (
+                      <h3 className="mt-3 text-xl font-bold sm:text-2xl">
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="transition-colors duration-200 hover:text-accent"
+                        >
+                          {project.title}
+                        </Link>
+                      </h3>
+                    ) : (
+                      <h3 className="mt-3 text-xl font-bold sm:text-2xl">{project.title}</h3>
+                    )}
 
                     <p className="mt-2 text-ink/75">{project.summary}</p>
                   </div>
@@ -199,6 +233,16 @@ export default function SelectedWork() {
                     </p>
 
                     <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+                      {hasProjectCaseStudy ? (
+                        <Link
+                          href={`/projects/${project.slug}`}
+                          className="inline-flex items-center gap-1.5 rounded-full bg-surface px-3.5 py-1.5 font-mono text-label uppercase text-surface-ink transition-colors duration-200 hover:bg-surface/85"
+                        >
+                          Read case study
+                          <span aria-hidden="true"> →</span>
+                        </Link>
+                      ) : null}
+
                       {project.links.live ? (
                         <a
                           href={project.links.live}
