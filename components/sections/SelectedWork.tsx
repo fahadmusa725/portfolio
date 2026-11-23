@@ -60,9 +60,9 @@ export default function SelectedWork() {
   return (
     <section
       id="work"
-      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-16 sm:py-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-14 lg:py-20"
     >
-      <p className="font-mono text-label uppercase text-muted">{selectedWork.label}</p>
+      <p className="font-mono text-label uppercase text-accent">{selectedWork.label}</p>
       <h2 className="mt-4 text-heading">{selectedWork.title}</h2>
 
       <div
@@ -81,7 +81,7 @@ export default function SelectedWork() {
               onClick={() => setActiveFilter(option.id)}
               className={`${chip} ${
                 pressed
-                  ? "border-surface bg-surface text-surface-ink"
+                  ? "border-surface bg-surface text-surface-ink dark:border-card-border"
                   : "border-line text-ink/75 hover:border-ink"
               }`}
             >
@@ -99,7 +99,7 @@ export default function SelectedWork() {
 
       {/* Flagship Card */}
       {showFlagship ? (
-        <article className="mt-10 overflow-hidden rounded-3xl bg-surface text-surface-ink sm:mt-12">
+        <article className="mt-10 overflow-hidden rounded-3xl border border-card-border bg-surface text-surface-ink sm:mt-12">
           {image ? (
             <div className="relative aspect-[16/9] w-full overflow-hidden">
               <Image
@@ -136,7 +136,7 @@ export default function SelectedWork() {
                   href={links.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${cardLink} text-surface-ink decoration-surface-ink/40 hover:decoration-surface-ink`}
+                  className={`${cardLink} text-accent-on-surface decoration-accent-on-surface/40 hover:decoration-accent-on-surface`}
                 >
                   {selectedWork.linkLabels.live}
                   <span aria-hidden="true"> ↗</span>

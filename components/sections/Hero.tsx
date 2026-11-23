@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section
       id="intro"
-      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-16 sm:py-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-14 lg:py-20"
     >
       <div className="flex flex-wrap items-center justify-between gap-4">
         <p className="font-mono text-label uppercase text-muted">00 / INTRO</p>
@@ -27,10 +27,10 @@ export default function Hero() {
       <p className="measure mt-8 text-muted">{profile.intro}</p>
 
       {/* Stats strip */}
-      <div className="mt-12 grid grid-cols-3 gap-4 border-y border-line py-8 sm:mt-16 sm:max-w-xl">
+      <div className="mt-12 grid grid-cols-3 gap-4 border-y border-line py-6 sm:mt-14 sm:max-w-xl">
         {stats.map((stat) => (
           <div key={stat.label}>
-            <p className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            <p className="text-3xl font-bold tracking-tight text-accent sm:text-4xl">
               {String(stat.value).padStart(2, "0")}
             </p>
             <p className="mt-1 font-mono text-label uppercase text-muted">{stat.label}</p>

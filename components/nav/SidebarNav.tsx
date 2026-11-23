@@ -164,7 +164,7 @@ export default function SidebarNav() {
         >
           <nav aria-label="Mobile Navigation">{renderNavList(true)}</nav>
           <div className="mt-6 flex items-center justify-between border-t border-line px-6 pt-4">
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4">
               {githubLink ? (
                 <a
                   href={githubLink.href}
@@ -194,7 +194,7 @@ export default function SidebarNav() {
                   rel="noopener noreferrer"
                   className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
                 >
-                  Resume
+                  Resume (PDF)
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : null}
@@ -275,7 +275,7 @@ export default function SidebarNav() {
                 rel="noopener noreferrer"
                 className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
               >
-                Resume
+                Resume (PDF)
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             ) : null}

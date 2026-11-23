@@ -1,4 +1,4 @@
-import { contactSection } from "@/content/site";
+import { contactSection, profile } from "@/content/site";
 
 const primaryButton =
   "inline-flex items-center rounded-full bg-surface-ink px-5 py-2.5 font-mono text-label uppercase text-surface";
@@ -12,14 +12,14 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-16 sm:py-24"
+      className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-14 lg:py-20"
     >
-      <p className="font-mono text-label uppercase text-muted">{label}</p>
+      <p className="font-mono text-label uppercase text-accent">{label}</p>
       <h2 className="mt-4 max-w-3xl text-heading">{title}</h2>
 
-      <div className="mt-10 rounded-3xl border border-line bg-surface p-6 text-surface-ink sm:mt-12 sm:p-10">
-        <p className="flex items-center gap-2 font-mono text-label uppercase text-surface-ink/70">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+      <div className="mt-10 rounded-3xl border border-card-border bg-surface p-6 text-surface-ink sm:mt-12 sm:p-10">
+        <p className="flex items-center gap-2 font-mono text-label uppercase text-accent-on-surface">
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-on-surface" />
           {availability}
         </p>
 
@@ -71,6 +71,25 @@ export default function Contact() {
               </dd>
             </div>
           ))}
+
+          {profile.resume ? (
+            <div>
+              <dt className="font-mono text-label uppercase text-surface-ink/65">
+                Resume
+              </dt>
+              <dd className="mt-2">
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline decoration-surface-ink/40 underline-offset-4"
+                >
+                  Resume (PDF)
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </dd>
+            </div>
+          ) : null}
         </dl>
       </div>
     </section>

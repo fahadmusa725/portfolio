@@ -9,10 +9,24 @@ function systemTheme(): Theme {
 // Runs before first paint so a stored choice beats the OS preference without a flash.
 export const themeInitScript = `(function(){try{var theme=localStorage.getItem("${THEME_STORAGE_KEY}");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme}}catch(e){}})();`;
 
+let transitionTimeout: ReturnType<typeof setTimeout> | null = null;
+
 export function toggleTheme(): void {
   const applied = document.documentElement.dataset.theme;
   const current: Theme = applied === "light" || applied === "dark" ? applied : systemTheme();
   const next: Theme = current === "dark" ? "light" : "dark";
+
+  // Check prefers-reduced-motion
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReducedMotion) {
+    document.documentElement.classList.add("theme-transitioning");
+    if (transitionTimeout) clearTimeout(transitionTimeout);
+    transitionTimeout = setTimeout(() => {
+      document.documentElement.classList.remove("theme-transitioning");
+      transitionTimeout = null;
+    }, 300);
+  }
 
   document.documentElement.dataset.theme = next;
 

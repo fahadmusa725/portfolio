@@ -67,22 +67,25 @@ export type WorkSection = {
 
 export const navLinks: NavLink[] = [
   { label: "Intro", href: "/#intro" },
+  { label: "About", href: "/#about" },
   { label: "Selected work", href: "/#work" },
   { label: "Experience", href: "/#experience" },
+  { label: "Education", href: "/#education" },
   { label: "Stack", href: "/#stack" },
-  { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];
 
 export const profile: Profile = {
   name: "Fahad Musa",
-  role: "Full Stack Developer",
+  role: "Software Engineer",
   location: "Karachi",
   availability: "Open to work",
   headline: "I build multi-tenant software that works end to end.",
   intro:
-    "Full stack developer in Karachi. I build production-style web apps with the MERN stack, including multi-tenant systems for hospitals and restaurants, and real-time tools with Next.js and TypeScript.",
+    "Software engineer in Karachi. I build production-style web apps with the MERN stack, including multi-tenant systems for hospitals and restaurants and real-time tools with Next.js and TypeScript.",
   email: "fahadmusa725@gmail.com",
+  photo: "/photo.jpeg",
+  resume: "/resume.pdf",
   socials: [
     { label: "GitHub", href: "https://github.com/fahadmusa725" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/fahad-musa-ba30ab355" },
@@ -90,7 +93,7 @@ export const profile: Profile = {
 };
 
 export const selectedWork: WorkSection = {
-  label: "01 / Selected work",
+  label: "02 / Selected work",
   title: "Selected work",
   linkLabels: {
     live: "Live site",
@@ -119,6 +122,7 @@ export const workProjects: Project[] = [
     stack: ["React", "Node.js", "Express", "MongoDB"],
     category: "saas",
     links: {
+      live: "https://dineflow-saas-taupe.vercel.app",
       repo: "https://github.com/fahadmusa725/pos-saas",
     },
     image: {
@@ -185,6 +189,12 @@ export const workProjects: Project[] = [
     category: "fullstack",
     links: {
       repo: "https://github.com/fahadmusa725/Booksy",
+    },
+    image: {
+      src: "/work/booksy.png",
+      alt: "Screenshot of the Booksy interface",
+      width: 1599,
+      height: 892,
     },
   },
   {
@@ -255,21 +265,12 @@ export type EducationEntry = {
 export type ExperienceSection = {
   label: string;
   title: string;
-  subLabels: {
-    experience: string;
-    education: string;
-  };
   entries: ExperienceEntry[];
-  education: EducationEntry[];
 };
 
 export const experienceSection: ExperienceSection = {
-  label: "02 / Experience",
-  title: "Experience and education",
-  subLabels: {
-    experience: "Experience",
-    education: "Education",
-  },
+  label: "03 / Experience",
+  title: "Experience",
   entries: [
     {
       role: "Full Stack Development Intern, CodeAlpha",
@@ -298,6 +299,17 @@ export const experienceSection: ExperienceSection = {
       ],
     },
   ],
+};
+
+export type EducationSection = {
+  label: string;
+  title: string;
+  education: EducationEntry[];
+};
+
+export const educationSection: EducationSection = {
+  label: "04 / Education",
+  title: "Education",
   education: [
     {
       institution: "Aptech Institute",
@@ -330,7 +342,7 @@ export type StackSection = {
 };
 
 export const stackSection: StackSection = {
-  label: "03 / Stack",
+  label: "05 / Stack",
   title: "Stack",
   groups: [
     {
@@ -382,10 +394,10 @@ export type AboutSection = {
 };
 
 export const aboutSection: AboutSection = {
-  label: "04 / About",
+  label: "01 / About",
   title: "About",
   paragraphs: [
-    "I'm a full stack developer in Karachi, studying software engineering at Aptech. I build with the MERN stack and Next.js, and I care most about security, clean design, and software that is easy to use and does not break.",
+    "I'm a software engineer in Karachi, currently studying at Aptech. I build with the MERN stack and Next.js and I care most about security, clean design and software that is easy to use and does not break.",
     "That shows in how I build. In CareFlow HMS, tenant isolation lives in the framework and fails closed, so a missed filter cannot leak another hospital's data. In DineFlow, the server re-checks stock, coupons and tax instead of trusting the client.",
     "I'm open to full-time, part-time and freelance work.",
   ],
@@ -415,7 +427,7 @@ export type ContactSection = {
 };
 
 export const contactSection: ContactSection = {
-  label: "05 / Contact",
+  label: "06 / Contact",
   title: "Hiring or have a project? Write to me.",
   line: "Email or WhatsApp, whichever is easier for you.",
   actions: {
@@ -435,4 +447,14 @@ export const contactSection: ContactSection = {
     { label: "Based in", value: "Karachi, Pakistan" },
   ],
   availability: profile.availability,
+};
+
+export type QuoteSection = {
+  text: string;
+  attribution: string;
+};
+
+export const closingQuote: QuoteSection = {
+  text: "“Well done is better than well said.”",
+  attribution: "Benjamin Franklin",
 };
