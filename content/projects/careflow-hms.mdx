@@ -1,8 +1,8 @@
 ## Overview
-CareFlow HMS is a multi-tenant hospital management platform. Many hospitals run on one deployment and manage OPD, IPD, lab, pharmacy and billing from it, with each hospital's data kept separate.
+CareFlow HMS is a multi-tenant hospital management platform. Many hospitals run on one deployment and manage OPD, IPD, lab, pharmacy and billing from it, with each hospital's data kept separate. I designed and built it on my own.
 
 ## Architecture
-All hospitals share one database and the same collections. Every tenant document carries a hospitalId, and tenant isolation happens in the data layer rather than in individual controllers.
+All hospitals share one database and the same collections. Every tenant document carries a `hospitalId`, and tenant isolation happens in the data layer rather than in individual controllers.
 
 <Flow steps={[
   { label: "Client", note: "Sends the JWT with each request" },
@@ -12,16 +12,16 @@ All hospitals share one database and the same collections. Every tenant document
   { label: "MongoDB", note: "Shared collections" }
 ]} />
 
-The hospitalId comes from the JWT and is held in AsyncLocalStorage for the length of the request. A Mongoose plugin on every tenant model reads it, adds the hospitalId filter to each query and stamps it on every save. If there is no tenant context, the query throws instead of running.
+The `hospitalId` comes from the JWT and is held in `AsyncLocalStorage` for the length of the request. A Mongoose plugin on every tenant model reads it, adds the `hospitalId` filter to each query and stamps it on every save. If there is no tenant context, the query throws instead of running.
 
-Authentication is a stateless JWT with a seven-day expiry, carrying the user id, role and hospitalId. Route-level RBAC middleware enforces nine roles: platform_super_admin, hospital_admin, doctor, nurse, receptionist, lab_technician, pharmacist, accountant and patient.
+Authentication is a stateless JWT with a seven-day expiry, carrying the user id, role and `hospitalId`. Route-level RBAC middleware enforces nine roles: `platform_super_admin`, `hospital_admin`, `doctor`, `nurse`, `receptionist`, `lab_technician`, `pharmacist`, `accountant` and `patient`.
 
 ## Key decisions
 
 <Decision title="Tenant isolation lives in the framework, not in controllers" why="A developer forgetting to add the hospitalId filter by hand could leak another hospital's data, so isolation is enforced by a plugin and fails closed when there is no tenant context.">
-Controllers never filter by hospitalId themselves. The Mongoose plugin and AsyncLocalStorage do it for every tenant model.
+Controllers never filter by `hospitalId` themselves. The Mongoose plugin and `AsyncLocalStorage` do it for every tenant model.
 </Decision>
 
-<Decision title="Email is globally unique, not per hospital" why="Login needs no hospital code or slug, and one email always maps to exactly one account and one hospital.">
-One email maps to exactly one account and one hospital.
+<Decision title="Email is globally unique, not per hospital" why="Login needs no hospital code or slug, so signing in stays simple for staff.">
+Trade-off: one email can only belong to one hospital account.
 </Decision>
