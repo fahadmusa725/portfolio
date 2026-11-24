@@ -125,6 +125,7 @@ export const workProjects: Project[] = [
     stack: ["React", "Node.js", "Express", "MongoDB"],
     category: "saas",
     links: {
+      live: "https://dineflow-saas-taupe.vercel.app",
       repo: "https://github.com/fahadmusa725/pos-saas",
     },
     image: {
