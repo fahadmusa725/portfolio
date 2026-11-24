@@ -1,5 +1,10 @@
 ## Overview
-CareFlow HMS is a multi-tenant hospital management platform. Many hospitals run on one deployment and manage OPD, IPD, lab, pharmacy and billing from it, with each hospital's data kept separate. I designed and built it on my own.
+CareFlow HMS is a multi-tenant hospital management platform. One deployment serves many hospitals, and each hospital runs its daily work in it: OPD registration and appointments, the live waiting queue, consultations, IPD admissions, lab, pharmacy, billing and reports. I designed and built it on my own.
+
+It targets three everyday problems in clinics and hospitals:
+- Paper registration and hand-written slips, replaced by online registration, automatic MRNs and tokens.
+- Patients not knowing when their turn comes, and reception answering calls about which number is running, replaced by a live queue, a waiting-room screen and queue position in the patient portal.
+- Doctors seeing a patient with no prior information, and no transparent way to give priority to emergencies and seniors, handled by a digital pre-check and a priority queue with an audited reason.
 
 ## Architecture
 All hospitals share one database and the same collections. Every tenant document carries a `hospitalId`, and tenant isolation happens in the data layer rather than in individual controllers.
@@ -14,14 +19,43 @@ All hospitals share one database and the same collections. Every tenant document
 
 The `hospitalId` comes from the JWT and is held in `AsyncLocalStorage` for the length of the request. A Mongoose plugin on every tenant model reads it, adds the `hospitalId` filter to each query and stamps it on every save. If there is no tenant context, the query throws instead of running.
 
-Authentication is a stateless JWT with a seven-day expiry, carrying the user id, role and `hospitalId`. Route-level RBAC middleware enforces nine roles: `platform_super_admin`, `hospital_admin`, `doctor`, `nurse`, `receptionist`, `lab_technician`, `pharmacist`, `accountant` and `patient`.
+Authentication uses stateless JWTs carrying the user id, role and `hospitalId`. Route-level RBAC middleware enforces nine roles: `platform_super_admin`, `hospital_admin`, `doctor`, `nurse`, `receptionist`, `lab_technician`, `pharmacist`, `accountant` and `patient`. Disabled users and suspended hospitals are blocked on the next request, not only at login.
+
+The frontend and the backend deploy as two Vercel projects, the backend as a serverless function. Data lives in MongoDB Atlas and uploaded files in Cloudinary.
 
 ## Key decisions
 
 <Decision title="Tenant isolation lives in the framework, not in controllers" why="A developer forgetting to add the hospitalId filter by hand could leak another hospital's data, so isolation is enforced by a plugin and fails closed when there is no tenant context.">
-Controllers never filter by `hospitalId` themselves. The Mongoose plugin and `AsyncLocalStorage` do it for every tenant model.
+Controllers never filter by `hospitalId` themselves. Aggregations must start with a `$match` on the current hospital, and the single deliberate bypass is `skipTenantScope`, which is easy to find by search.
 </Decision>
 
 <Decision title="Email is globally unique, not per hospital" why="Login needs no hospital code or slug, so signing in stays simple for staff.">
 Trade-off: one email can only belong to one hospital account.
 </Decision>
+
+<Decision title="Queue rules live in one module and are backed by the database" why="The queue, Call next, the patient portal and the waiting-room screen all need the same answer to who is next, so the ordering exists in exactly one place.">
+Waiting order is priority, then check-in time, then token. There is one token counter per doctor per day, and partial unique indexes prevent double booking and two patients in consultation with one doctor.
+</Decision>
+
+<Decision title="The waiting-room screen is the only endpoint without login" why="A screen on a wall cannot log in, so it gets one narrow, hardened endpoint instead of a loophole in the main API.">
+It uses a 128-bit key compared in constant time, shows token numbers only and no names, is rate limited, and regenerating the key cancels every old link.
+</Decision>
+
+<Decision title="Tenant isolation is covered by tests, not only by design" why="A boundary enforced only by convention breaks silently, so the isolation rules are checked on every test run.">
+145 tests run against an in-memory MongoDB and the real Express app, covering tenant isolation, the role-by-route matrix, hospital access rules, the queue flow and the audit trail.
+</Decision>
+
+## Security
+- Five failed logins lock an account for 15 minutes, and a wrong password and an unknown email return the same generic error.
+- Patient signup never links to an existing record without an emailed code.
+- API responses are `no-store`, and the browser cache is cleared on logout and when the user or hospital changes.
+- Uploads are checked by file signature rather than the declared type, and pre-check reports are opened through short-lived signed links.
+- `helmet` is enabled, CORS is an explicit allow-list, and 5xx errors hide internal details in production.
+- An audit log records changes and every patient-record view, and never stores query strings.
+
+## Current limitations
+The whole project runs on free tiers, so a few paid pieces are out of scope:
+- No SMS or WhatsApp notifications. Reminders go out by email.
+- No online payment gateway. Billing records the payment method, but money does not move through the app.
+- The queue refreshes by short polling instead of real-time push.
+- Scheduled jobs such as the no-show check run daily, within the free hosting limits.
