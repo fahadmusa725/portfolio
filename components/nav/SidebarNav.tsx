@@ -160,17 +160,18 @@ export default function SidebarNav() {
         <div
           ref={mobilePanelRef}
           id="mobile-nav-panel"
-          className="fixed inset-x-0 top-[73px] z-40 border-b border-line bg-paper py-6 shadow-sm lg:hidden"
+          className="fixed inset-x-0 top-[73px] z-40 flex max-h-[calc(100vh-73px)] flex-col overflow-y-auto border-b border-line bg-paper py-6 shadow-sm lg:hidden"
         >
           <nav aria-label="Mobile Navigation">{renderNavList(true)}</nav>
-          <div className="mt-6 flex items-center justify-between border-t border-line px-6 pt-4">
-            <div className="flex flex-wrap items-center gap-4">
+          <div className="mt-6 flex flex-col gap-4 border-t border-line px-6 pt-6">
+            {/* Row 1: Plain text links */}
+            <div className="flex flex-wrap items-center gap-4 text-sm">
               {githubLink ? (
                 <a
                   href={githubLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
+                  className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
                 >
                   GitHub
                   <span className="sr-only"> (opens in a new tab)</span>
@@ -181,31 +182,49 @@ export default function SidebarNav() {
                   href={linkedinLink.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
+                  className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
                 >
                   LinkedIn
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : null}
+            </div>
+
+            {/* Row 2: Resume PDF button and Theme Toggle */}
+            <div className="flex items-center gap-3">
               {profile.resume ? (
                 <a
                   href={profile.resume}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
+                  className="inline-flex items-center gap-2 rounded-[12px] bg-surface px-4 py-2.5 font-mono text-label uppercase text-surface-ink transition-opacity hover:opacity-90"
                 >
-                  Resume (PDF)
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Resume PDF</span>
                   <span className="sr-only"> (opens in a new tab)</span>
                 </a>
               ) : null}
+              <ThemeToggle />
             </div>
-            <ThemeToggle />
           </div>
         </div>
       ) : null}
 
       {/* Desktop Fixed Left Panel (lg and up: 18rem / 72 wide, full height, hairline right border) */}
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 flex-col justify-between overflow-y-auto border-r border-line bg-paper p-8 lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 flex-col overflow-y-auto border-r border-line bg-paper p-8 lg:flex">
         <div className="flex flex-col gap-6">
           {/* Top tile: 96px, 16px radius */}
           <div className="relative flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-surface text-surface-ink font-mono text-2xl font-bold">
@@ -243,45 +262,64 @@ export default function SidebarNav() {
           </nav>
         </div>
 
-        {/* Bottom actions: links and ThemeToggle */}
-        <div className="mt-8 flex flex-col gap-4 border-t border-line pt-6">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-            {githubLink ? (
-              <a
-                href={githubLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
-              >
-                GitHub
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            ) : null}
-            {linkedinLink ? (
-              <a
-                href={linkedinLink.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
-              >
-                LinkedIn
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            ) : null}
-            {profile.resume ? (
-              <a
-                href={profile.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-label uppercase text-muted transition-colors duration-200 hover:text-ink"
-              >
-                Resume (PDF)
-                <span className="sr-only"> (opens in a new tab)</span>
-              </a>
-            ) : null}
-          </div>
-          <div>
-            <ThemeToggle />
+        {/* Bottom actions: hairline above, generous spacing, two rows */}
+        <div className="mt-auto pt-8">
+          <div className="flex flex-col gap-4 border-t border-line pt-6">
+            {/* Row 1: GitHub and LinkedIn as plain text links */}
+            <div className="flex flex-wrap items-center gap-4 text-sm">
+              {githubLink ? (
+                <a
+                  href={githubLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
+                >
+                  GitHub
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : null}
+              {linkedinLink ? (
+                <a
+                  href={linkedinLink.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-ink underline decoration-line underline-offset-4 transition-colors hover:decoration-ink"
+                >
+                  LinkedIn
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : null}
+            </div>
+
+            {/* Row 2: filled Resume PDF button and 40px round bordered theme button */}
+            <div className="flex items-center gap-3">
+              {profile.resume ? (
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-[12px] bg-surface px-4 py-2.5 font-mono text-label uppercase text-surface-ink transition-opacity hover:opacity-90"
+                >
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-4 w-4"
+                    aria-hidden="true"
+                  >
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Resume PDF</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              ) : null}
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </aside>

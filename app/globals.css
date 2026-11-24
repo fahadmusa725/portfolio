@@ -158,11 +158,7 @@
   }
 }
 
-/* Theme switch styling driven purely by CSS selectors */
-.theme-switch-thumb {
-  transform: translateX(0);
-}
-
+/* Theme toggle styling driven purely by CSS selectors */
 .theme-glyph-sun {
   opacity: 1;
   transform: rotate(0deg);
@@ -174,9 +170,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .theme-switch-thumb {
-    transform: translateX(1.25rem);
-  }
   :root:not([data-theme="light"]) .theme-glyph-sun {
     opacity: 0;
     transform: rotate(-90deg);
@@ -187,9 +180,6 @@
   }
 }
 
-:root[data-theme="dark"] .theme-switch-thumb {
-  transform: translateX(1.25rem);
-}
 :root[data-theme="dark"] .theme-glyph-sun {
   opacity: 0;
   transform: rotate(-90deg);
@@ -199,9 +189,6 @@
   transform: rotate(0deg);
 }
 
-:root[data-theme="light"] .theme-switch-thumb {
-  transform: translateX(0);
-}
 :root[data-theme="light"] .theme-glyph-sun {
   opacity: 1;
   transform: rotate(0deg);
@@ -212,7 +199,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .theme-switch-thumb,
   .theme-glyph-sun,
   .theme-glyph-moon {
     transition: none !important;
