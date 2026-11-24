@@ -14,6 +14,9 @@ export type Profile = {
   location: string;
   availability: string;
   headline: string;
+  headlineEmphasis?: string;
+  eyebrowParts: string[];
+  statusLines: string[];
   intro: string;
   email: string;
   photo?: string;
@@ -82,6 +85,17 @@ export const profile: Profile = {
   location: "Karachi",
   availability: "Open to work",
   headline: "I build multi-tenant software that works end to end.",
+  headlineEmphasis: "works end to end.",
+  eyebrowParts: [
+    "Fahad Musa",
+    "Software Engineer",
+    "MERN and Next.js",
+    "Karachi",
+  ],
+  statusLines: [
+    "Open to full-time, part-time and freelance work",
+    "Currently: studying software engineering at Aptech",
+  ],
   intro:
     "Software engineer in Karachi. I build production-style web apps with the MERN stack, including multi-tenant systems for hospitals and restaurants and real-time tools with Next.js and TypeScript.",
   email: "fahadmusa725@gmail.com",
@@ -335,9 +349,15 @@ export const educationSection: EducationSection = {
   ],
 };
 
+export type StackItem = {
+  name: string;
+  note?: string;
+};
+
 export type StackGroup = {
   title: string;
-  items: string[];
+  descriptor?: string;
+  items: (string | StackItem)[];
 };
 
 export type StackSection = {
@@ -351,42 +371,66 @@ export const stackSection: StackSection = {
   title: "Stack",
   groups: [
     {
-      title: "Frontend",
+      title: "Languages",
+      descriptor: "core",
       items: [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "TypeScript",
-        "React",
-        "Next.js",
-        "Tailwind CSS",
-        "Bootstrap",
-        "jQuery",
+        { name: "JavaScript", note: "daily" },
+        { name: "TypeScript", note: "daily" },
+        { name: "HTML", note: "daily" },
+        { name: "CSS", note: "daily" },
+        { name: "PHP", note: "basic" },
+        { name: "C#", note: "basic" },
+        { name: "Dart", note: "learning" },
+      ],
+    },
+    {
+      title: "Frontend",
+      descriptor: "web",
+      items: [
+        { name: "React", note: "daily" },
+        { name: "Next.js", note: "daily" },
+        { name: "Tailwind CSS", note: "daily" },
+        { name: "Flutter", note: "learning" },
       ],
     },
     {
       title: "Backend",
-      items: ["Node.js", "Express.js", "PHP", "Laravel", "C#"],
-    },
-    {
-      title: "Mobile",
-      items: ["Dart", "Flutter"],
-    },
-    {
-      title: "Data and hosting",
-      items: ["MongoDB", "MySQL", "SQL Server", "Vercel", "Netlify"],
-    },
-    {
-      title: "Tools",
+      descriptor: "apis",
       items: [
-        "Git",
-        "GitHub",
-        "Ably",
-        "Stripe",
-        "Cloudinary",
-        "Microsoft Word",
-        "Microsoft Excel",
-        "Microsoft PowerPoint",
+        { name: "Node.js", note: "daily" },
+        { name: "Express.js", note: "daily" },
+        { name: "Laravel", note: "basic" },
+      ],
+    },
+    {
+      title: "Data",
+      descriptor: "storage",
+      items: [
+        { name: "MongoDB", note: "daily" },
+        { name: "MySQL", note: "basic" },
+        { name: "SQL Server", note: "basic" },
+      ],
+    },
+    {
+      title: "Tooling",
+      descriptor: "ship",
+      items: [
+        { name: "Git", note: "daily" },
+        { name: "GitHub", note: "daily" },
+        { name: "Vercel", note: "deploy" },
+        { name: "Netlify", note: "deploy" },
+        { name: "Ably", note: "when needed" },
+        { name: "Stripe", note: "checkout" },
+        { name: "Cloudinary", note: "media" },
+      ],
+    },
+    {
+      title: "Office",
+      descriptor: "daily",
+      items: [
+        { name: "Word" },
+        { name: "Excel" },
+        { name: "PowerPoint" },
       ],
     },
   ],

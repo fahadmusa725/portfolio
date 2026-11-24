@@ -8,7 +8,10 @@ export default function Education() {
       id="education"
       className="mx-auto w-full max-w-5xl scroll-mt-20 px-6 py-14 lg:py-20"
     >
-      <p className="font-mono text-label uppercase text-accent">{label}</p>
+      <p className="flex items-center gap-3 font-mono text-label uppercase text-muted">
+        <span aria-hidden="true" className="h-px w-8 bg-accent shrink-0" />
+        <span>{label}</span>
+      </p>
       <h2 className="mt-4 text-heading">{title}</h2>
 
       <ul className="mt-8 sm:mt-10">
