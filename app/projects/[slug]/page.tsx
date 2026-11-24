@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import React from "react";
+import React, { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -62,7 +62,7 @@ function extractHeadings(content: string): TocItem[] {
   return headings;
 }
 
-export default async function CaseStudyPage({ params }: PageProps) {
+async function CaseStudyContent({ params }: PageProps) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
 
@@ -120,7 +120,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
     ),
     code: (props: React.HTMLAttributes<HTMLElement>) => (
       <code
-        className="rounded bg-surface/10 px-1.5 py-0.5 font-mono text-sm text-accent"
+        className="rounded border border-line bg-surface/5 px-1.5 py-0.5 font-mono text-[0.875em] text-ink whitespace-nowrap"
         {...props}
       />
     ),
@@ -227,5 +227,19 @@ export default async function CaseStudyPage({ params }: PageProps) {
         <Toc items={headings} variant="desktop" />
       </div>
     </div>
+  );
+}
+
+export default function CaseStudyPage(props: PageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto w-full max-w-5xl px-6 py-12 lg:py-16">
+          <div className="h-4 w-24 rounded bg-surface/10 animate-pulse" />
+        </div>
+      }
+    >
+      <CaseStudyContent {...props} />
+    </Suspense>
   );
 }

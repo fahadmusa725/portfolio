@@ -7,6 +7,8 @@ export type DecisionProps = {
 };
 
 export default function Decision({ title, why, children }: DecisionProps) {
+  const hasChildren = Boolean(children);
+
   return (
     <aside className="my-8 rounded-2xl border border-line bg-paper/50 p-6 sm:p-7">
       <div className="flex items-center gap-2 font-mono text-label uppercase text-accent">
@@ -20,7 +22,7 @@ export default function Decision({ title, why, children }: DecisionProps) {
         <strong className="font-semibold text-ink">Why: </strong>
         {why}
       </p>
-      {children ? (
+      {hasChildren ? (
         <div className="mt-4 border-t border-line/60 pt-4 text-ink/75">
           {children}
         </div>
