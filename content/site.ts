@@ -117,13 +117,14 @@ export const selectedWork: WorkSection = {
  */
 export const workProjects: Project[] = [
   {
+    slug: "dineflow",
+    hasCaseStudy: true,
     title: "DineFlow",
     summary:
       "Multi-tenant restaurant POS. Each restaurant's menu, staff, inventory, orders and reports stay separate, with plan-based access control.",
     stack: ["React", "Node.js", "Express", "MongoDB"],
     category: "saas",
     links: {
-      live: "https://dineflow-saas-taupe.vercel.app",
       repo: "https://github.com/fahadmusa725/pos-saas",
     },
     image: {

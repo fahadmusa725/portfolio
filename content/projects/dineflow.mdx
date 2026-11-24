@@ -1,0 +1,43 @@
+## Overview
+DineFlow is a multi-tenant restaurant POS, kitchen display and inventory platform. One deployment serves many restaurants, and each restaurant only sees its own data.
+
+Staff take orders at the POS terminal, the kitchen sees them on a live screen, waiters are told when food is ready, and every sale updates inventory, customer credit and reports. A platform owner creates restaurants, picks a plan (Basic or Pro) and sets the trial length. Each restaurant then manages its own menu, tables, staff, customers, stock and reports.
+
+## Architecture
+All restaurants share one database and the same collections, and every restaurant document carries a `restaurantId`.
+
+<Flow steps={[
+  { label: "Client", note: "Sends the JWT with each request" },
+  { label: "Auth middleware", note: "Verifies the token" },
+  { label: "setTenant", note: "Reads restaurantId from the JWT, sets req.tenantId and checks the restaurant status" },
+  { label: "Controller", note: "Queries with restaurantId: req.tenantId" },
+  { label: "MongoDB", note: "Shared collections" }
+]} />
+
+After authentication, a `setTenant` middleware reads the `restaurantId` from the JWT and sets `req.tenantId`. It also checks the restaurant's status, so a suspended restaurant, or one whose trial has ended, gets a 403. Controllers then query with `restaurantId: req.tenantId`.
+
+Authentication is a JWT with a seven-day expiry, carrying the user id, role and `restaurantId`. Six roles exist: `super-admin`, `restaurant-admin`, `manager`, `cashier`, `waiter` and `kitchen`. Route-level `authorize(...roles)` checks the role, and `checkPermission(module)` checks the restaurant's plan and the staff member's custom module permissions.
+
+Realtime runs on Ably. The backend publishes order events to a restaurant-specific channel, and the browser subscribes with a short-lived, subscribe-only token limited to its own restaurant's channel.
+
+## Key decisions
+
+<Decision title="The server verifies everything the browser sends" why="Cart totals, coupons, tax and stock can be tampered with in the browser, so the backend validates stock and recalculates prices, discounts, coupons and tax when an order is created.">
+Orders are rejected when there is not enough stock to make them.
+</Decision>
+
+<Decision title="Access control has two layers on top of roles" why="Fixed roles alone are too rigid. Layering the plan tier and per-staff permissions lets Basic and Pro plans differ, and lets a cashier get access to one specific report.">
+Module permissions start from the role defaults, and the restaurant admin can adjust them per account.
+</Decision>
+
+<Decision title="Stock deduction is atomic and reversible" why="Selling an item deducts its recipe ingredients, so a failed order must not leave stock wrongly reduced.">
+Deduction is atomic and is undone if the order fails to save or is cancelled. Cancelling also restores the customer's credit.
+</Decision>
+
+<Decision title="Realtime access is scoped per restaurant" why="A realtime channel is another way to leak data between tenants, so tokens are short lived and subscribe-only, limited to the user's own restaurant channel.">
+The backend publishes events. Browsers can only listen.
+</Decision>
+
+## Current limitations
+- There is no online payment gateway or automatic subscription billing. Plans and trials are managed by the super admin.
+- There is no seed script. The first restaurant and its data are created through the app.
