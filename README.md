@@ -1,5 +1,7 @@
 # Portfolio
 
+Live: https://fahadmusa-dev.vercel.app
+
 The personal portfolio of Fahad Musa, a software engineer in Karachi.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16.4.6-000000?logo=nextdotjs&logoColor=white)
