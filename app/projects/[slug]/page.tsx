@@ -29,9 +29,36 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {};
   }
 
+  const ogImages = project.image
+    ? [
+        {
+          url: project.image.src,
+          width: project.image.width,
+          height: project.image.height,
+          alt: project.image.alt,
+        },
+      ]
+    : [];
+
   return {
-    title: `${project.title} | Fahad Musa`,
+    title: project.title,
     description: project.summary,
+    alternates: {
+      canonical: `/projects/${slug}`,
+    },
+    openGraph: {
+      type: "article",
+      title: `${project.title} | Fahad Musa`,
+      description: project.summary,
+      url: `/projects/${slug}`,
+      images: ogImages,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Fahad Musa`,
+      description: project.summary,
+      images: project.image ? [project.image.src] : [],
+    },
   };
 }
 

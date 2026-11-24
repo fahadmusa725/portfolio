@@ -459,6 +459,21 @@ export type QuoteSection = {
   attribution: string;
 };
 
+export const siteUrl = "https://fahadmusa-dev.vercel.app";
+
+export const siteMetadata = {
+  title: "Fahad Musa | Software Engineer",
+  description:
+    "Portfolio of Fahad Musa, a software engineer in Karachi building multi-tenant MERN applications, with case studies on CareFlow HMS and DineFlow.",
+};
+
+export const notFoundContent = {
+  label: "404 / NOT FOUND",
+  title: "Page not found",
+  description: "The page you are looking for does not exist or has been moved.",
+  backLabel: "Back to home",
+};
+
 export const closingQuote: QuoteSection = {
   text: "“Well done is better than well said.”",
   attribution: "Benjamin Franklin",
