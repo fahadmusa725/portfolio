@@ -9,30 +9,33 @@ function systemTheme(): Theme {
 // Runs before first paint so a stored choice beats the OS preference without a flash.
 export const themeInitScript = `(function(){try{var theme=localStorage.getItem("${THEME_STORAGE_KEY}");if(theme==="light"||theme==="dark"){document.documentElement.dataset.theme=theme}}catch(e){}})();`;
 
-let transitionTimeout: ReturnType<typeof setTimeout> | null = null;
-
 export function toggleTheme(): void {
   const applied = document.documentElement.dataset.theme;
   const current: Theme = applied === "light" || applied === "dark" ? applied : systemTheme();
   const next: Theme = current === "dark" ? "light" : "dark";
 
-  // Check prefers-reduced-motion
+  const applyTheme = () => {
+    document.documentElement.dataset.theme = next;
+    try {
+      localStorage.setItem(THEME_STORAGE_KEY, next);
+    } catch {
+      // Storage can be blocked (private browsing); the theme still applies for this page.
+    }
+  };
+
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (!prefersReducedMotion) {
-    document.documentElement.classList.add("theme-transitioning");
-    if (transitionTimeout) clearTimeout(transitionTimeout);
-    transitionTimeout = setTimeout(() => {
-      document.documentElement.classList.remove("theme-transitioning");
-      transitionTimeout = null;
-    }, 300);
-  }
-
-  document.documentElement.dataset.theme = next;
-
-  try {
-    localStorage.setItem(THEME_STORAGE_KEY, next);
-  } catch {
-    // Storage can be blocked (private browsing); the theme still applies for this page.
+  // Apply with View Transitions API when supported and user does not prefer reduced motion
+  if (
+    !prefersReducedMotion &&
+    typeof document !== "undefined" &&
+    "startViewTransition" in document &&
+    typeof document.startViewTransition === "function"
+  ) {
+    document.startViewTransition(() => {
+      applyTheme();
+    });
+  } else {
+    applyTheme();
   }
 }
