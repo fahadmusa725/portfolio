@@ -14,7 +14,7 @@ export default function Stack() {
       </p>
       <h2 className="mt-4 text-heading">{title}</h2>
 
-      <div className="mt-10 grid grid-cols-1 items-start gap-8 sm:mt-12 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-10 grid grid-cols-1 items-start gap-8 sm:mt-12 sm:grid-cols-2 lg:grid-cols-3">
         {groups.map((group) => (
           <div key={group.title} className="flex flex-col">
             <div className="flex h-8 items-baseline justify-between border-b border-line pb-2 whitespace-nowrap">
@@ -22,7 +22,7 @@ export default function Stack() {
                 {group.title}
               </h3>
               {group.descriptor ? (
-                <span className="font-mono text-label text-muted/70">
+                <span className="hidden font-mono text-label text-muted/70 sm:inline">
                   {group.descriptor}
                 </span>
               ) : null}
