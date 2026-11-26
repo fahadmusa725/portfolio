@@ -143,18 +143,19 @@
   }
 }
 
-/* View transitions for smooth theme change crossfade */
+/* View transitions for smooth circular reveal theme change */
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 250ms;
-  animation-timing-function: ease;
+  animation: none;
+  mix-blend-mode: normal;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none !important;
-  }
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
 }
 
 /* Theme toggle styling driven purely by CSS selectors */

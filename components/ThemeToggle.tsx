@@ -1,13 +1,17 @@
 "use client";
 
+import { useRef } from "react";
 import { toggleTheme } from "@/lib/theme";
 
 export default function ThemeToggle() {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
   return (
     <button
+      ref={buttonRef}
       type="button"
       aria-label="Switch colour theme"
-      onClick={toggleTheme}
+      onClick={() => toggleTheme(buttonRef.current)}
       className="relative flex h-10 w-10 shrink-0 cursor-pointer items-center justify-center rounded-full border border-line bg-paper text-ink transition-colors duration-200 hover:border-ink focus-visible:outline-2 focus-visible:outline-accent"
     >
       {/* Sun Glyph (SVG) */}
